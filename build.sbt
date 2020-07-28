@@ -3,7 +3,7 @@ import com.typesafe.sbt.SbtGit.{GitKeys => git}
 enablePlugins(GhpagesPlugin, SiteScaladocPlugin)
 
 name := "twitter4s"
-version := "6.3-SNAPSHOT"
+version := "6.3.0"
 
 scalaVersion := "2.13.0"
 
@@ -53,7 +53,7 @@ lazy val standardSettings = Seq(
     ScmInfo(url("https://github.com/DanielaSfregola/twitter4s"),
             "scm:git:git@github.com:DanielaSfregola/twitter4s.git")),
   apiURL := Some(url("http://DanielaSfregola.github.io/twitter4s/latest/api/")),
-  crossScalaVersions := Seq(scalaVersion.value, "2.12.10", "2.11.12"),
+  crossScalaVersions := Seq(scalaVersion.value, "2.12.11", "2.11.12"),
   pomExtra := (
     <developers>
     <developer>
@@ -63,11 +63,10 @@ lazy val standardSettings = Seq(
     </developer>
   </developers>
   ),
-  publishMavenStyle := true,
   publishTo := {
-    if (version.value.trim.endsWith("SNAPSHOT")) Some(Opts.resolver.sonatypeSnapshots)
-    else Some(Opts.resolver.sonatypeStaging)
+    Some("Artifactory Realm" at s"https://artifactory.enliven.systems/artifactory/sbt-dev-local/")
   },
+  credentials += Credentials(Path.userHome / ".sbt" / ".credentials"),
   git.gitRemoteRepo := "git@github.com:DanielaSfregola/twitter4s.git",
   scalacOptions ++= Seq(
     "-encoding",
